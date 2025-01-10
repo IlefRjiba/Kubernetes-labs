@@ -1,0 +1,14 @@
+FROM alpine
+
+RUN apk add --no-cache python3 py3-pip
+RUN apk add py3-flask
+
+WORKDIR /app
+COPY . .
+
+ENV FLASK_APP=challenge1
+ENV FLASK_ENV=development
+
+EXPOSE 5000
+
+ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
