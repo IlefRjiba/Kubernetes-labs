@@ -1,11 +1,13 @@
 from flask import Flask, request
 from datetime import datetime
 import socket
+import os
 from pymongo import MongoClient
 
 app = Flask(__name__)
 
-mongo_client = MongoClient("mongodb://localhost:27017/")
+MONGO_URL = os.getenv("MONGO_URL")
+mongo_client = MongoClient(MONGO_URL)
 db = mongo_client["flask_db"]  
 collection = db["requests"]  
 

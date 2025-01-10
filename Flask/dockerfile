@@ -2,13 +2,11 @@ FROM alpine
 
 RUN apk add --no-cache python3 py3-pip
 RUN apk add py3-flask
+RUN pip install --break-system-packages flask pymongo
 
 WORKDIR /app
 COPY . .
 
-ENV FLASK_APP=challenge1
-ENV FLASK_ENV=development
-
 EXPOSE 5000
 
-ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
+ENTRYPOINT ["python", "app.py"]
