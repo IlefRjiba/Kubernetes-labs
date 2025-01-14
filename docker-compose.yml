@@ -9,9 +9,9 @@ services:
     networks:
       - flask-mongo-net
 
-  flask:
-    image: ilefrjiba/flask-app
-    container_name: flask
+  flask_with_db:
+    image: ilefrjiba/flask-app:v2
+    container_name: flask_with_db
     ports:
       - "5000:5000"
     networks:
@@ -20,6 +20,24 @@ services:
       - mongodb
     environment:
       - MONGO_URL=mongodb://mongodb:27017/
+
+  flask_without_db:
+    image: ilefrjiba/flask-app:v1
+    container_name: flask_without_db
+    ports:
+      - "5001:5000"
+    networks:
+      - flask-mongo-net
+
+  nginx:
+    image: nginx
+    ports:
+      - "8080:80"
+    depends_on:
+    - flask_with_db
+    - flask_without_db
+    networks:
+      - flask-mongo-net
     
 networks:
   flask-mongo-net:
