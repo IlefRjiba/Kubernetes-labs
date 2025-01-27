@@ -40,4 +40,5 @@ spec:
       accessModes: {{.Values.mongo_pvc.accessModes}}
       resources:
         requests:
-          storage: {{.Values.mongo_pvc.storage}}
+          storage: {{.Values.mongo_pvc.storage
+          }}

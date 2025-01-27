@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  labels:
+    name: ingress
+  namespace: irjiba
+spec:
+  rules:
+  - host: webnodb.irjiba.net4255.luxbulb.org
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: webnodb-service
+            port: 
+              number: 80
+  - host: webdb.irjiba.net4255.luxbulb.org
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: webdb-service
+            port: 
+              number: 8080
