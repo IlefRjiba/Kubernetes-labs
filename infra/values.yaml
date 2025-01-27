@@ -8,13 +8,6 @@ deployments:
     env:
       MONGO_URL: mongodb-service.irjiba.svc.cluster.local:27017
 
-  - name: mongodb
-    label: mongodb
-    image: mongo
-    replicas: 1
-    port: 27017
-    matchLabels: mongodb
-
   - name: webnodb
     label: webnodb
     image: ilefrjiba/flask-app:v1
@@ -33,10 +26,7 @@ services:
     port: 8080
     targetPort: 5000
 
-  - name: mongodb-service
-    app: mongodb
-    port: 27017
-    targetPort: 27017
+
 
 ingress:
   name: ingress
@@ -47,3 +37,25 @@ ingress:
     - host: webdb.irjiba.net4255.luxbulb.org
       serviceName: webdb-service
       servicePort: 8080
+      
+mongo_statefulset:
+  name: mongostatefulset
+  label: mongodb
+  image: mongo
+  replicas: 1
+  port: 27017
+  matchLabels: mongodb
+  volumeMounts:
+    name: mongodb-data
+    path: /data/db
+
+mongo_pvc:
+  name: mongodb-data
+  accessModes: [ "ReadWriteOnce" ]
+  storage: 0.4Gi
+
+mongo_headless:
+  name: mongodb-service
+  app: mongodb
+  port: 27017
+  targetPort: 27017

@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.mongo_headless.name}}
+spec:
+  clusterIP: None 
+  selector:
+    app: {{.Values.mongo_headless.app}}
+  ports:
+  - port: 27017
+    targetPort: 27017
+
+--- 
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{.Values.mongo_statefulset.name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{.Values.mongo_statefulset.label}}
+  serviceName: {{.Values.mongo_headless.name}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.mongo_statefulset.label}}
+    spec:
+      containers:
+      - name:  {{.Values.mongo_statefulset.label}}
+        image:  {{.Values.mongo_statefulset.image}}
+        ports:
+        - containerPort:  {{.Values.mongo_statefulset.port}}
+        volumeMounts:
+        - name: {{.Values.mongo_statefulset.volumeMounts.name}}
+          mountPath: {{.Values.mongo_statefulset.volumeMounts.path}}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{.Values.mongo_pvc.name}}
+    spec:
+      accessModes: {{.Values.mongo_pvc.accessModes}}
+      resources:
+        requests:
+          storage: {{.Values.mongo_pvc.storage}}
