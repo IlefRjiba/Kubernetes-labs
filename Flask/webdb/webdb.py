@@ -32,9 +32,9 @@ def hello_world():
 
     return f"""
     <div style="text-align: center">
-        <h1>Bentaleb Ali Ahmed</h1>
+        <h1>Rjiba Ilef</h1>
         <h2>Project: <b>Kubernetes Project</b></h2>
-        <p>Version: <b>V2</b></p>
+        <p>Version: <b>V3</b></p>
         <p>Server Hostname: <b>{hostname}</b></p>
         <p>Current Date: <b>{current_date}</b></p>
         <h2>Last 10 Requests:</h2>

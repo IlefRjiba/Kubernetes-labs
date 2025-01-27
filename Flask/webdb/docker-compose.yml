@@ -1,0 +1,27 @@
+version: '3.3'
+
+# docker compose to test app with db
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - flask-mongo-net
+
+  flask_with_db:
+    image: ilefrjiba/flask-app:v3
+    container_name: flask_with_db
+    ports:
+      - "5000:5000"
+    networks:
+      - flask-mongo-net
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/
+
+networks:
+  flask-mongo-net:

@@ -2,11 +2,10 @@ FROM alpine
 
 RUN apk add --no-cache python3 py3-pip
 RUN apk add py3-flask
-RUN pip install --break-system-packages flask pymongo
 
 WORKDIR /app
 COPY . .
 
 EXPOSE 5000
 
-ENTRYPOINT ["python", "app.py"]
+ENTRYPOINT ["python", "webnodb.py"]
