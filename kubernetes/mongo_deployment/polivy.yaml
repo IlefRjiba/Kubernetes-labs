@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mongodb-access
+  namespace: irjiba
+spec:
+  podSelector:
+    matchLabels:
+      app: mongodb
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: webdb
+    - podSelector:
+        matchLabels:
+          app: webnodb
+    ports:
+    - protocol: TCP
+      port: 27017

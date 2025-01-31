@@ -11,6 +11,7 @@ echo "Deleting all resources in all namespaces..."
   kubectl delete pvc --all -n irjiba
   kubectl delete serviceaccount --all -n irjiba
   kubectl delete ingress -n irjiba
+  kubectl delete statefulsets --all
 
 
 echo "All resources have been deleted."
